@@ -1,6 +1,6 @@
 # DictionaryApp
 
-* An Android Application that displays the meaning of the word and some other things related to it from the dictionary
+* An Android Application that displays the meaning of the word and some other things related to it from the dictionary.
 * Fetches the data from an API https://dictionaryapi.dev/ and cache the results.
 
 # Preview
