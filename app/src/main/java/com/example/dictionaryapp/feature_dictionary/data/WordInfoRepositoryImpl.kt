@@ -16,10 +16,8 @@ class WordInfoRepositoryImpl(private val api: DictionaryApi, private val dao: Wo
     WordInfoRepository {
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override fun getWordInfo(word: String): Flow<Resource<List<WordInfo>>> = flow {
-        emit(Resource.Loading())
 
         val wordInfos = dao.getWordInfos(word).map { it.toWordInfo() }
-        emit(Resource.Loading(data = wordInfos))
 
         try {
             val remoteWordInfos = api.getWordInfo(word)

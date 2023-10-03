@@ -68,32 +68,30 @@ class MainActivity : ComponentActivity() {
                                 value = viewModel.searchQuery.value,
                                 onValueChange = viewModel::onSearch,
                                 modifier = Modifier.fillMaxWidth(),
-                                placeholder = { Text(text = "Search...")}
+                                placeholder = { Text(text = "Search for a word") }
                             )
                             Spacer(modifier = Modifier.height(16.dp))
-                            LazyColumn(modifier = Modifier.fillMaxSize()){
-                                items(state.wordInfoItems.size){index->
-                                    val wordInfo=state.wordInfoItems[index]
-                                    if(index>0){
+                            LazyColumn(modifier = Modifier.fillMaxSize()) {
+                                items(state.wordInfoItems.size) { index ->
+                                    val wordInfo = state.wordInfoItems[index]
+                                    if (index > 0) {
                                         Spacer(modifier = Modifier.height(8.dp))
                                     }
-                                    WordInfoItem(wordInfo=wordInfo)
-                                    if(index<state.wordInfoItems.size-1){
+                                    WordInfoItem(wordInfo = wordInfo)
+                                    if (index < state.wordInfoItems.size - 1) {
                                         Divider()
                                     }
 
 
                                 }
-                               }
+                            }
 
-if(state.isLoading){
-    Box{
-        CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-    }
-
-}
 
                         }
+                    }
+                    if(state.isLoading){
+                        Box(contentAlignment = Alignment.Center){
+                        CircularProgressIndicator()}
                     }
                 }
 
