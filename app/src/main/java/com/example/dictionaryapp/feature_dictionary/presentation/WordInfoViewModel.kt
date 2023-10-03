@@ -1,7 +1,5 @@
 package com.example.dictionaryapp.feature_dictionary.presentation
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dictionaryapp.core.util.Resource
@@ -10,7 +8,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -19,11 +19,11 @@ import javax.inject.Inject
 @HiltViewModel
 class WordInfoViewModel @Inject constructor(private val getWordInfo: GetWordInfo) : ViewModel() {
 
-    private val _searchQuery = mutableStateOf("")
-    val searchQuery: State<String> = _searchQuery
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery = _searchQuery.asStateFlow()
 
-    private val _wordInfoState = mutableStateOf(WordInfoState())
-    val wordInfoState: State<WordInfoState> = _wordInfoState
+    private val _wordInfoState = MutableStateFlow(WordInfoState())
+    val wordInfoState = _wordInfoState.asStateFlow()
 
     private val _eventFlow = MutableSharedFlow<UIEvent>()
     val eventFlow = _eventFlow.asSharedFlow()

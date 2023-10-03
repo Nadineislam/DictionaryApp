@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.dictionaryapp.feature_dictionary.presentation.WordInfoItem
 import com.example.dictionaryapp.feature_dictionary.presentation.WordInfoViewModel
 import com.example.dictionaryapp.ui.theme.DictionaryAppTheme
@@ -43,7 +44,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             DictionaryAppTheme {
                 val viewModel: WordInfoViewModel = hiltViewModel()
-                val state = viewModel.wordInfoState.value
+                val state = viewModel.wordInfoState.collectAsStateWithLifecycle().value
                 val snackbarHostState = remember { SnackbarHostState() }
                 LaunchedEffect(key1 = true) {
                     viewModel.eventFlow.collectLatest { event ->
@@ -65,7 +66,7 @@ class MainActivity : ComponentActivity() {
                                 .padding(16.dp)
                         ) {
                             TextField(
-                                value = viewModel.searchQuery.value,
+                                value = viewModel.searchQuery.collectAsStateWithLifecycle().value,
                                 onValueChange = viewModel::onSearch,
                                 modifier = Modifier.fillMaxWidth(),
                                 placeholder = { Text(text = "Search for a word") }
@@ -89,9 +90,10 @@ class MainActivity : ComponentActivity() {
 
                         }
                     }
-                    if(state.isLoading){
-                        Box(contentAlignment = Alignment.Center){
-                        CircularProgressIndicator()}
+                    if (state.isLoading) {
+                        Box(contentAlignment = Alignment.Center) {
+                            CircularProgressIndicator()
+                        }
                     }
                 }
 
