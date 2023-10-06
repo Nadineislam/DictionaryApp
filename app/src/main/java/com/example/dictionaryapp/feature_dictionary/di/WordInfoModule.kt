@@ -9,7 +9,6 @@ import com.example.dictionaryapp.feature_dictionary.data.remote.DictionaryApi
 import com.example.dictionaryapp.feature_dictionary.data.remote.DictionaryApi.Companion.BASE_URL
 import com.example.dictionaryapp.feature_dictionary.data.util.GsonParser
 import com.example.dictionaryapp.feature_dictionary.domain.repository.WordInfoRepository
-import com.example.dictionaryapp.feature_dictionary.domain.use_case.GetWordInfo
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -22,12 +21,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object WordInfoModule {
-@Provides
-@Singleton
-fun provideGetInfoUseCase(repository: WordInfoRepository):GetWordInfo{
-    return GetWordInfo(repository)
-}
-
     @Provides
     @Singleton
     fun provideWordInfoRepository(api:DictionaryApi,db:WordInfoDatabase):WordInfoRepository{
