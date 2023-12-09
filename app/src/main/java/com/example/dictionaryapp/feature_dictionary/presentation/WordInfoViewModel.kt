@@ -3,7 +3,7 @@ package com.example.dictionaryapp.feature_dictionary.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dictionaryapp.core.util.Resource
-import com.example.dictionaryapp.feature_dictionary.domain.use_case.GetWordInfo
+import com.example.dictionaryapp.feature_dictionary.domain.use_case.WordInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class WordInfoViewModel @Inject constructor(private val getWordInfo: GetWordInfo) : ViewModel() {
+class WordInfoViewModel @Inject constructor(private val getWordInfo: WordInfoUseCase) : ViewModel() {
 
     private val _searchQuery = MutableStateFlow("")
     val searchQuery = _searchQuery.asStateFlow()
