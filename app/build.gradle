@@ -104,4 +104,7 @@ dependencies {
     implementation "androidx.room:room-ktx:2.5.2"
 
     implementation "androidx.lifecycle:lifecycle-runtime-compose:2.6.2"
+
+    //test for coroutines
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0'
 }
