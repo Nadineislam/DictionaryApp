@@ -9,10 +9,11 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-open class WordInfoUseCase @Inject constructor(private val repository: WordInfoRepository) {
-    open operator fun invoke(word:String):Flow<Resource<List<WordInfo>>>{
-        if(word.isBlank()){
-            return flow {  }
+class WordInfoUseCase @Inject constructor(private val repository: WordInfoRepository) :
+    IWordInfoUseCase {
+    override operator fun invoke(word: String): Flow<Resource<List<WordInfo>>> {
+        if (word.isBlank()) {
+            return flow { }
         }
         return repository.getWordInfo(word)
     }

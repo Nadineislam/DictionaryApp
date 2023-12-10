@@ -9,6 +9,8 @@ import com.example.dictionaryapp.feature_dictionary.data.remote.DictionaryApi
 import com.example.dictionaryapp.feature_dictionary.data.remote.DictionaryApi.Companion.BASE_URL
 import com.example.dictionaryapp.feature_dictionary.data.util.GsonParser
 import com.example.dictionaryapp.feature_dictionary.domain.repository.WordInfoRepository
+import com.example.dictionaryapp.feature_dictionary.domain.use_case.IWordInfoUseCase
+import com.example.dictionaryapp.feature_dictionary.domain.use_case.WordInfoUseCase
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -23,20 +25,34 @@ import javax.inject.Singleton
 object WordInfoModule {
     @Provides
     @Singleton
-    fun provideWordInfoRepository(api:DictionaryApi,db:WordInfoDatabase):WordInfoRepository{
-        return WordInfoRepositoryImpl(api,db.dao)
+    fun provideWordInfoRepository(api: DictionaryApi, db: WordInfoDatabase): WordInfoRepository {
+        return WordInfoRepositoryImpl(api, db.dao)
     }
+
     @Provides
     @Singleton
-    fun provideWordInfoDatabase(app:Application):WordInfoDatabase{
-        return Room.databaseBuilder(app,WordInfoDatabase::class.java,"word_db")
-            .fallbackToDestructiveMigration().addTypeConverter(Converters(GsonParser(
-            Gson())
-        )).build()
+    fun provideWordInfoDatabase(app: Application): WordInfoDatabase {
+        return Room.databaseBuilder(app, WordInfoDatabase::class.java, "word_db")
+            .fallbackToDestructiveMigration().addTypeConverter(
+                Converters(
+                    GsonParser(
+                        Gson()
+                    )
+                )
+            ).build()
     }
+
     @Provides
     @Singleton
-    fun provideDictionaryApi():DictionaryApi{
-        return Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build().create(DictionaryApi::class.java)
+    fun provideDictionaryApi(): DictionaryApi {
+        return Retrofit.Builder().baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build()
+            .create(DictionaryApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideWordInfoUseCase(wordInfoUseCase: WordInfoUseCase): IWordInfoUseCase {
+        return wordInfoUseCase
     }
 }
