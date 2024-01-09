@@ -18,4 +18,5 @@ https://github.com/Nadineislam/DictionaryApp/assets/96357226/f92e232e-5b22-4f47-
 * Hilt
 * Retrofit
 * Room (Caching)
+* Unit Testing
 
